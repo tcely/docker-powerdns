@@ -15,8 +15,8 @@ RUN apk --update add mysql-client mariadb-client-libs libpq sqlite-libs libressl
       g++ make mariadb-dev postgresql-dev sqlite-dev lua-dev libressl-dev curl boost-dev libsodium-dev file && \
     curl -sSL https://downloads.powerdns.com/releases/pdns-$POWERDNS_VERSION.tar.bz2 | tar xj -C /tmp && \
     cd /tmp/pdns-$POWERDNS_VERSION && \
-    ./configure --prefix="" --exec-prefix=/usr --sysconfdir=/etc/pdns \
-      --with-modules="bind gmysql gpgsql gsqlite3" --with-dynmodules="pipe random lua remote"&& \
+    ./configure --prefix="" --exec-prefix=/usr --sysconfdir=/etc/pdns --enable-libsodium \
+      --with-modules="bind gmysql gpgsql gsqlite3" --with-dynmodules="pipe random lua remote" && \
     make -j "$(awk '/^processor\t/ {CPUS=$NF} END {print ++CPUS}' /proc/cpuinfo)" && \
     make install-strip && cd / && \
     mkdir -p /etc/pdns/conf.d && \
