@@ -10,7 +10,7 @@ ENV REFRESHED_AT="2017-05-17" \
     MYSQL_PASS="root" \
     MYSQL_DB="pdns"
 
-RUN apk --update add mysql-client mariadb-client-libs mariadb-libs libpq postgresql-libs sqlite-libs libressl libstdc++ libgcc lua libsodium && \
+RUN apk --update add mysql-client mariadb-client-libs mariadb-libs libpq postgresql-libs sqlite-libs libressl libstdc++ libgcc lua libsodium boost-program_options && \
     apk add --virtual build-deps \
       g++ make mariadb-dev postgresql-dev sqlite-dev lua-dev libressl-dev curl boost-dev libsodium-dev file && \
     curl -sSL https://downloads.powerdns.com/releases/pdns-$POWERDNS_VERSION.tar.bz2 | tar xj -C /tmp && \
