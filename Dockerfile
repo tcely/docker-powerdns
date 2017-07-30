@@ -16,7 +16,7 @@ RUN apk --update add mysql-client mariadb-client-libs libpq sqlite-libs libstdc+
     curl -sSL https://downloads.powerdns.com/releases/pdns-$POWERDNS_VERSION.tar.bz2 | tar xj -C /tmp && \
     cd /tmp/pdns-$POWERDNS_VERSION && \
     ./configure --prefix="" --exec-prefix=/usr --sysconfdir=/etc/pdns \
-      --with-modules="bind gmysql gpgsql gsqlite3 lua remote" && \
+      --with-modules="bind gmysql gpgsql gsqlite3" --with-dynmodules="pipe random lua remote"&& \
     make -j "$(awk '/^processor\t/ {CPUS=$NF} END {print ++CPUS}' /proc/cpuinfo)" && \
     make install-strip && cd / && \
     mkdir -p /etc/pdns/conf.d && \
