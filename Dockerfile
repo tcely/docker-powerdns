@@ -18,7 +18,8 @@ RUN apk --update add \
       libpq postgresql-libs \
       sqlite-libs lua && \
     apk add --virtual build-deps \
-      file g++ make mariadb-dev postgresql-dev sqlite-dev lua-dev libressl-dev boost-dev libsodium-dev curl git autoconf automake libtool && \
+      file g++ make mariadb-dev postgresql-dev sqlite-dev lua-dev libressl-dev boost-dev libsodium-dev curl \
+      git autoconf automake libtool bison && \
     git clone -b patch-1 --depth 20 'https://github.com/tcely/pdns.git' /tmp/pdns-tcely && \
     cd /tmp/pdns-tcely && ./bootstrap && \
     ./configure --prefix="" --exec-prefix=/usr --sysconfdir=/etc/pdns \
