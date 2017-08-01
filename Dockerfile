@@ -23,7 +23,7 @@ RUN apk --update add \
     git clone -b patch-1 --depth 20 'https://github.com/tcely/pdns.git' /tmp/pdns-tcely && \
     cd /tmp/pdns-tcely && ./bootstrap && \
     ./configure --prefix="" --exec-prefix=/usr --sysconfdir=/etc/pdns \
-      --enable-libsodium --with-sqlite3 --enable-tools \
+      --enable-libsodium --with-sqlite3 --enable-tools --enable-verbose-logging \
       --with-modules="bind gmysql gpgsql gsqlite3" --with-dynmodules="pipe random lua remote" && \
     make -j "$(awk '/^processor\t/ {CPUS=$NF} END {print ++CPUS}' /proc/cpuinfo)" && \
     make install-strip && cd / && \
