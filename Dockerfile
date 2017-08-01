@@ -11,7 +11,6 @@ ENV REFRESHED_AT="2017-05-17" \
     MYSQL_DB="pdns"
 
 #    curl -sSL https://downloads.powerdns.com/releases/pdns-$POWERDNS_VERSION.tar.bz2 | tar xj -C /tmp && \
-#    cd /tmp/pdns-$POWERDNS_VERSION && \
 RUN apk --update add \
       libstdc++ libgcc libressl libsodium boost-program_options \
       mysql-client mariadb-client-libs mariadb-libs \
@@ -20,8 +19,9 @@ RUN apk --update add \
     apk add --virtual build-deps \
       file g++ make mariadb-dev postgresql-dev sqlite-dev lua-dev libressl-dev boost-dev libsodium-dev curl \
       git autoconf automake libtool bison flex ragel py-virtualenv && \
-    git clone -b patch-1 --depth 20 'https://github.com/tcely/pdns.git' /tmp/pdns-tcely && \
-    cd /tmp/pdns-tcely && ./bootstrap && \
+    git clone -b patch-1 --depth 20 'https://github.com/tcely/pdns.git' /tmp/pdns-$POWERDNS_VERSION && \
+    cd /tmp/pdns-$POWERDNS_VERSION && \
+    ./bootstrap && \
     ./configure --prefix="" --exec-prefix=/usr --sysconfdir=/etc/pdns \
       --enable-libsodium --with-sqlite3 --enable-tools --enable-verbose-logging \
       --with-modules="bind gmysql gpgsql gsqlite3" --with-dynmodules="pipe random lua remote" && \
