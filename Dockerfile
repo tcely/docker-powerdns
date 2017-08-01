@@ -10,7 +10,6 @@ ENV REFRESHED_AT="2017-05-17" \
     MYSQL_PASS="root" \
     MYSQL_DB="pdns"
 
-#    curl -sSL https://downloads.powerdns.com/releases/pdns-$POWERDNS_VERSION.tar.bz2 | tar xj -C /tmp && \
 RUN apk --update add \
       libstdc++ libgcc libressl libsodium boost-program_options \
       mysql-client mariadb-client-libs mariadb-libs \
