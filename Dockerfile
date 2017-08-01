@@ -17,16 +17,13 @@ RUN apk --update add \
       libpq postgresql-libs \
       sqlite-libs lua && \
     apk add --virtual build-deps \
-      file g++ make mariadb-dev postgresql-dev sqlite-dev lua-dev libressl-dev boost-dev libsodium-dev curl \
-      git autoconf automake libtool bison flex ragel py-virtualenv && \
-    git clone -b patch-1 --depth 20 'https://github.com/tcely/pdns.git' /tmp/pdns-$POWERDNS_VERSION && \
+      file g++ make mariadb-dev postgresql-dev sqlite-dev lua-dev libressl-dev boost-dev libsodium-dev curl && \
+    curl -sSL https://downloads.powerdns.com/releases/pdns-$POWERDNS_VERSION.tar.bz2 | tar xj -C /tmp && \
     cd /tmp/pdns-$POWERDNS_VERSION && \
-    ./bootstrap && \
     ./configure --prefix="" --exec-prefix=/usr --sysconfdir=/etc/pdns \
-      --enable-libsodium --with-sqlite3 --enable-tools --enable-verbose-logging \
+      --enable-libsodium --with-sqlite3 --enable-tools \
       --with-modules="bind gmysql gpgsql gsqlite3" --with-dynmodules="pipe random lua remote" && \
-    make -j "$(awk '/^processor\t/ {CPUS=$NF} END {print ++CPUS}' /proc/cpuinfo)" && \
-    make install-strip && cd / && \
+    make && make install-strip && cd / && \
     mkdir -p /etc/pdns/conf.d && \
     addgroup -S pdns 2>/dev/null && \
     adduser -S -D -H -h /var/empty -s /bin/false -G pdns -g pdns pdns 2>/dev/null && \
