@@ -49,6 +49,7 @@ if grep -hr '^launch=' /etc/pdns/pdns.conf /etc/pdns/conf.d/ 2>/dev/null | grep 
   if [ "$(printf 'SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = "%s";\n' "$MYSQL_DB" | eval "$MYSQLCMD")" -le 1 ]; then
     echo 'Initializing Database'
     < /etc/pdns/schema.sql eval "$MYSQLCMD"
+
   fi
 fi
 
