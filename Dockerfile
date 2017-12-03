@@ -16,11 +16,9 @@ RUN apk --update add \
       libpq postgresql-libs \
       sqlite-libs lua && \
     apk add --virtual build-deps \
-      autoconf automake ragel bison flex \
       file g++ make mariadb-dev postgresql-dev sqlite-dev lua-dev libressl-dev boost-dev libsodium-dev curl && \
     curl -sSL "https://github.com/PowerDNS/pdns/archive/auth-${POWERDNS_VERSION}.tar.gz" | tar -xz -C /tmp && \
     cd "/tmp/pdns-auth-${POWERDNS_VERSION}" && \
-    ./bootstrap && \
     ./configure --prefix="" --exec-prefix=/usr --sysconfdir=/etc/pdns \
       --enable-libsodium --with-sqlite3 --enable-tools \
       --with-modules="bind gmysql gpgsql gsqlite3" --with-dynmodules="pipe random lua remote" && \
