@@ -1,5 +1,10 @@
 FROM alpine:edge
 
+COPY schema.sql pdns.conf /etc/pdns/
+COPY entrypoint.sh /
+
+EXPOSE 53/tcp 53/udp
+
 ENV REFRESHED_AT="2018-03-08" \
     POWERDNS_VERSION="4.1.1" \
     MYSQL_AUTOCONF="true" \
@@ -16,10 +21,5 @@ RUN apk --update add \
       pdns-tools && \
     apk upgrade && \
     rm -rf /var/cache/apk/*
-
-ADD schema.sql pdns.conf /etc/pdns/
-ADD entrypoint.sh /
-
-EXPOSE 53/tcp 53/udp
 
 ENTRYPOINT ["/entrypoint.sh"]
